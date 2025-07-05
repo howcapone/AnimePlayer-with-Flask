@@ -1,0 +1,15 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+    <meta charset="UTF-8">
+    <title>Аниме-плеер</title>
+</head>
+<body>
+    <h1>Сейчас играет: {{ video_file.split('/')[-1] }}</h1>
+    <video width="800" controls autoplay>
+        <source src="{{ url_for('static', filename=video_file) }}" type="video/mp4">
+    </video>
+    <br>
+    <a href="{{ url_for('choice') }}">← Вернуться к выбору серий</a>
+</body>
+</html>
