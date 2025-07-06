@@ -1,0 +1,52 @@
+{% extends "base.html" %}
+
+{% block title %}Каталог аниме{% endblock %}
+
+{% block content %}
+    <div class="header">
+        <h1>Каталог аниме</h1>
+        <form class="search-form" action="{{ url_for('catalog') }}" method="get">
+            <input type="text" name="search" class="search-input" placeholder="Поиск аниме..." value="{{ search_query }}">
+            <button type="submit" class="search-btn">Найти</button>
+        </form>
+    </div>
+
+    {% if anime_list %}
+        <div class="anime-grid">
+            {% for anime in anime_list %}
+                <a href="{{ url_for('player', anime_id=anime.id, episode=1) }}" class="anime-card" data-anime-id="{{ anime.id }}">
+                    <img src="{{ anime.image }}" alt="{{ anime.title }}" onerror="this.src='/static/img/placeholder.jpg'">
+                    <div class="anime-info">
+                        <h3>{{ anime.title }}</h3>
+                        <p>{{ anime.year }} • {{ anime.episodes_count }} серий</p>
+                    </div>
+                </a>
+            {% endfor %}
+        </div>
+    {% endif %}
+
+    {% if config.DEBUG %}
+    <div class="debug-section">
+        <h3>Debug Info:</h3>
+        <p>Total anime: {{ anime_list|length }}</p>
+        <p>Search query: "{{ search_query }}"</p>
+        {% if debug_first_item %}
+        <p>First item:</p>
+        <ul>
+            <li>ID: {{ debug_first_item.id }}</li>
+            <li>Title: {{ debug_first_item.title }}</li>
+            <li>Episodes: {{ debug_first_item.episodes }}</li>
+        </ul>
+        {% endif %}
+    </div>
+    {% endif %}
+
+    <script>
+    // Добавим проверку кликов для отладки
+    document.querySelectorAll('.anime-card').forEach(card => {
+        card.addEventListener('click', function(e) {
+            console.log('Clicked anime ID:', this.dataset.animeId);
+        });
+    });
+    </script>
+{% endblock %}
