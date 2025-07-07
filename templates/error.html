@@ -1,23 +1,26 @@
 {% extends "base.html" %}
 
-{% block title %}Ошибка{% endblock %}
+{% block title %}Ошибка | AnimeCatalog{% endblock %}
 
 {% block content %}
-    <div class="error-container">
-        <h1>Ошибка</h1>
-        <p class="error-message">{{ message }}</p>
-        <a href="{{ back_url }}" class="nav-btn">Вернуться назад</a>
-
+<div class="error-container">
+    <h1>Произошла ошибка</h1>
+    <div class="error-message">
+        <p>{{ message }}</p>
         {% if debug_info %}
-        <div class="debug-info">
-            <h3>Информация для разработчика:</h3>
-            <pre>{{ debug_info | tojson(indent=2) }}</pre>
-
-            <h4>Проверьте:</h4>
+        <div class="debug-details">
+            <h3>Детали ошибки:</h3>
             <ul>
-                <li><a href="/api/status" target="_blank">Состояние API</a></li>
+                {% for key, value in debug_info.items() %}
+                <li><strong>{{ key }}:</strong> {{ value }}</li>
+                {% endfor %}
             </ul>
         </div>
         {% endif %}
     </div>
+
+    {% if back_url %}
+    <a href="{{ back_url }}" class="error-button">Попробовать снова</a>
+    {% endif %}
+</div>
 {% endblock %}

@@ -1,20 +1,15 @@
-/* Основные переменные цветов в аниме-стиле */
 :root {
-    --primary: #ff4d7d; /* Розовый акцент */
-    --primary-dark: #d93a6a;
-    --secondary: #6a5acd; /* Фиолетовый */
-    --dark: #1a1a2e; /* Тёмно-синий */
-    --darker: #16213e;
-    --light: #e6f7ff;
-    --gray: #b8c2cc;
-    --anime-red: #ff3860;
-    --anime-blue: #2b90d9;
-    --text-light: #ffffff;
-    --text-dark: #333333;
-    --card-bg: rgba(255, 255, 255, 0.95);
+    --primary: #ff6584;
+    --primary-dark: #e04f6d;
+    --secondary: #6a5acd;
+    --dark: #1a1a2e;
+    --light: #f8f9fa;
+    --gray: #6c757d;
+    --light-gray: #e9ecef;
+    --white: #ffffff;
+    --black: #212529;
 }
 
-/* Сброс и базовые стили */
 * {
     box-sizing: border-box;
     margin: 0;
@@ -23,445 +18,385 @@
 }
 
 body {
-    background-color: var(--dark);
-    color: var(--text-light);
+    background-color: var(--light);
+    color: var(--black);
     line-height: 1.6;
-    background-image:
-        radial-gradient(circle at 20% 30%, rgba(255, 77, 125, 0.15) 0%, transparent 20%),
-        radial-gradient(circle at 80% 70%, rgba(106, 90, 205, 0.15) 0%, transparent 20%);
-    min-height: 100vh;
 }
 
 .container {
-    max-width: 1400px;
+    max-width: 1200px;
     margin: 0 auto;
     padding: 20px;
-    position: relative;
-    z-index: 1;
 }
 
-/* Анимации */
-@keyframes fadeIn {
-    from { opacity: 0; transform: translateY(20px); }
-    to { opacity: 1; transform: translateY(0); }
+/* Каталог */
+.catalog-container {
+    background: var(--white);
+    border-radius: 10px;
+    box-shadow: 0 2px 10px rgba(0,0,0,0.1);
+    padding: 30px;
+    margin-top: 20px;
 }
 
-@keyframes pulse {
-    0% { transform: scale(1); }
-    50% { transform: scale(1.05); }
-    100% { transform: scale(1); }
+.catalog-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-bottom: 30px;
+    flex-wrap: wrap;
+    gap: 20px;
 }
 
-/* Шапка и навигация */
-.header {
-    margin-bottom: 40px;
-    text-align: center;
-    animation: fadeIn 0.8s ease-out;
+.catalog-header h1 {
+    color: var(--dark);
+    font-size: 2rem;
 }
 
-.header h1 {
-    color: var(--text-light);
-    margin-bottom: 20px;
-    font-size: 2.5rem;
-    background: linear-gradient(45deg, var(--primary), var(--secondary));
-    -webkit-background-clip: text;
-    background-clip: text;
-    color: transparent;
-    display: inline-block;
-    position: relative;
-}
-
-.header h1::after {
-    content: '';
-    position: absolute;
-    bottom: -10px;
-    left: 50%;
-    transform: translateX(-50%);
-    width: 100px;
-    height: 4px;
-    background: linear-gradient(90deg, var(--primary), var(--secondary));
-    border-radius: 2px;
-}
-
-/* Форма поиска */
 .search-form {
     display: flex;
-    max-width: 600px;
-    margin: 0 auto;
-    box-shadow: 0 10px 20px rgba(0, 0, 0, 0.2);
-    border-radius: 50px;
-    overflow: hidden;
-    transition: transform 0.3s;
-}
-
-.search-form:hover {
-    transform: translateY(-3px);
+    max-width: 500px;
+    width: 100%;
 }
 
 .search-input {
     flex: 1;
-    padding: 15px 25px;
-    border: none;
-    font-size: 16px;
-    background: rgba(255, 255, 255, 0.9);
-    color: var(--text-dark);
+    padding: 12px 15px;
+    border: 1px solid var(--light-gray);
+    border-radius: 5px 0 0 5px;
+    font-size: 1rem;
+    border-right: none;
 }
 
-.search-input:focus {
-    outline: none;
-    background: white;
-}
-
-.search-btn {
-    padding: 0 30px;
-    background: linear-gradient(45deg, var(--primary), var(--secondary));
+.search-button {
+    background: var(--primary);
     color: white;
     border: none;
+    border-radius: 0 5px 5px 0;
+    padding: 0 20px;
     cursor: pointer;
-    font-size: 16px;
-    font-weight: bold;
-    transition: all 0.3s;
+    transition: background 0.3s;
+    font-size: 1rem;
 }
 
-.search-btn:hover {
-    background: linear-gradient(45deg, var(--primary-dark), var(--secondary));
-    letter-spacing: 1px;
+.search-button:hover {
+    background: var(--primary-dark);
 }
 
-/* Сетка аниме */
 .anime-grid {
     display: grid;
-    grid-template-columns: repeat(auto-fill, minmax(220px, 1fr));
-    gap: 30px;
-    margin-top: 40px;
-    animation: fadeIn 0.8s ease-out 0.2s both;
+    grid-template-columns: repeat(auto-fill, minmax(200px, 1fr));
+    gap: 25px;
 }
 
 .anime-card {
-    background: var(--card-bg);
-    border-radius: 12px;
-    overflow: hidden;
-    box-shadow: 0 8px 25px rgba(0, 0, 0, 0.15);
-    transition: all 0.3s cubic-bezier(0.25, 0.8, 0.25, 1);
+    transition: transform 0.3s;
     text-decoration: none;
-    color: var(--text-dark);
-    position: relative;
+    color: inherit;
 }
 
 .anime-card:hover {
-    transform: translateY(-10px) scale(1.03);
-    box-shadow: 0 15px 35px rgba(0, 0, 0, 0.3);
+    transform: translateY(-5px);
 }
 
-.anime-card::before {
-    content: '';
+.card-image-container {
+    position: relative;
+    border-radius: 8px;
+    overflow: hidden;
+    aspect-ratio: 2/3;
+    margin-bottom: 10px;
+}
+
+.card-image-container img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+}
+
+.card-overlay {
     position: absolute;
-    top: 0;
+    bottom: 0;
     left: 0;
     right: 0;
-    height: 4px;
-    background: linear-gradient(90deg, var(--primary), var(--secondary));
+    background: linear-gradient(to top, rgba(0,0,0,0.7), transparent);
+    padding: 10px;
+    display: flex;
+    justify-content: space-between;
+    color: white;
+    font-size: 0.9rem;
 }
 
-.anime-card img {
-    width: 100%;
-    height: 300px;
-    object-fit: cover;
-    border-bottom: 1px solid rgba(0, 0, 0, 0.1);
-    transition: transform 0.5s;
-}
-
-.anime-card:hover img {
-    transform: scale(1.1);
-}
-
-.anime-info {
-    padding: 18px;
-    position: relative;
-    z-index: 1;
-    background: white;
-}
-
-.anime-info h3 {
-    margin: 0 0 8px 0;
-    font-size: 16px;
+.card-info h3 {
+    font-size: 1rem;
+    margin-bottom: 5px;
     white-space: nowrap;
     overflow: hidden;
     text-overflow: ellipsis;
-    color: var(--darker);
-    font-weight: 600;
 }
 
-.anime-info p {
-    margin: 0;
+.card-info p {
     color: var(--gray);
-    font-size: 14px;
+    font-size: 0.9rem;
+}
+
+.pagination {
     display: flex;
+    justify-content: center;
     align-items: center;
-}
-
-.anime-info p::before {
-    content: '★';
-    color: var(--primary);
-    margin-right: 5px;
-    font-size: 12px;
-}
-
-/* Плеер */
-.player-header {
-    margin-bottom: 30px;
-    text-align: center;
-    animation: fadeIn 0.8s ease-out;
-}
-
-.player-header h1 {
-    color: var(--text-light);
-    font-size: 2.2rem;
-    margin-bottom: 10px;
-    text-shadow: 0 2px 5px rgba(0, 0, 0, 0.2);
-}
-
-.player-header h2 {
-    color: var(--gray);
-    font-weight: normal;
-    font-size: 1.3rem;
-}
-
-.video-container {
-    position: relative;
-    padding-bottom: 56.25%;
-    margin: 30px 0;
-    background: #000;
-    border-radius: 12px;
-    overflow: hidden;
-    box-shadow: 0 10px 30px rgba(0, 0, 0, 0.3);
-    animation: fadeIn 0.8s ease-out 0.2s both;
-}
-
-.video-container .video-js {
-    position: absolute;
-    top: 0;
-    left: 0;
-    width: 100%;
-    height: 100%;
-}
-
-/* Навигация по сериям */
-.episode-nav {
-    display: flex;
-    justify-content: space-between;
-    align-items: center;
-    margin: 30px 0;
-    gap: 15px;
-    animation: fadeIn 0.8s ease-out 0.4s both;
-}
-
-.episode-selector {
-    padding: 12px 20px;
-    border: 2px solid rgba(255, 255, 255, 0.2);
-    border-radius: 8px;
-    font-size: 16px;
-    flex-grow: 1;
-    background: rgba(0, 0, 0, 0.2);
-    color: white;
-    cursor: pointer;
-    transition: all 0.3s;
-}
-
-.episode-selector:focus {
-    outline: none;
-    border-color: var(--primary);
-}
-
-.episode-selector option {
-    background: var(--darker);
-}
-
-.nav-btn {
-    padding: 12px 25px;
-    background: linear-gradient(45deg, var(--primary), var(--secondary));
-    color: white;
-    text-decoration: none;
-    border-radius: 8px;
-    text-align: center;
-    transition: all 0.3s;
-    flex-shrink: 0;
-    font-weight: bold;
-    border: none;
-    cursor: pointer;
-}
-
-.nav-btn:hover {
-    background: linear-gradient(45deg, var(--primary-dark), var(--secondary));
-    transform: translateY(-2px);
-    box-shadow: 0 5px 15px rgba(255, 77, 125, 0.3);
-}
-
-.back-link {
-    text-align: center;
+    gap: 20px;
     margin-top: 40px;
-    animation: fadeIn 0.8s ease-out 0.6s both;
 }
 
-/* Ошибки */
-.error-container {
-    text-align: center;
-    padding: 60px 20px;
-    max-width: 700px;
-    margin: 0 auto;
-    background: rgba(26, 26, 46, 0.8);
-    border-radius: 15px;
-    box-shadow: 0 10px 30px rgba(0, 0, 0, 0.2);
-    animation: fadeIn 0.8s ease-out;
-}
-
-.error-container h1 {
-    color: var(--primary);
-    margin-bottom: 20px;
-    font-size: 2.5rem;
-}
-
-.error-message {
-    font-size: 1.2rem;
-    margin-bottom: 30px;
-    color: var(--gray);
-}
-
-/* Отладочная информация */
-.debug-info {
-    margin-top: 40px;
-    padding: 20px;
-    background: rgba(22, 33, 62, 0.8);
-    border-radius: 10px;
-    border-left: 4px solid var(--primary);
-}
-
-.debug-info h3 {
-    color: var(--primary);
-    margin: 15px 0 10px;
-}
-
-.debug-info pre {
-    white-space: pre-wrap;
-    word-wrap: break-word;
-    background: rgba(0, 0, 0, 0.3);
-    color: var(--text-light);
-    padding: 15px;
+.page-link {
+    padding: 8px 15px;
+    background: var(--light-gray);
     border-radius: 5px;
-    overflow-x: auto;
-    font-family: 'Courier New', monospace;
-}
-
-.debug-info ul {
-    padding-left: 20px;
-    margin: 10px 0;
-}
-
-.debug-info a {
-    color: var(--secondary);
+    transition: background 0.3s;
     text-decoration: none;
-    transition: color 0.3s;
+    color: var(--dark);
 }
 
-.debug-info a:hover {
+.page-link:hover {
+    background: #d1d7e0;
+}
+
+.current-page {
+    font-weight: 500;
+}
+
+.no-results {
+    text-align: center;
+    padding: 50px 0;
+}
+
+.no-results p {
+    margin-bottom: 15px;
+    font-size: 1.2rem;
+}
+
+.reset-search {
     color: var(--primary);
     text-decoration: underline;
 }
 
-.debug-section {
-    margin-top: 50px;
-    padding: 25px;
-    background: rgba(22, 33, 62, 0.8);
+/* Страница аниме */
+.anime-container {
+    background: var(--white);
     border-radius: 10px;
-    border: 1px solid rgba(255, 255, 255, 0.1);
-    animation: fadeIn 0.8s ease-out;
+    box-shadow: 0 2px 10px rgba(0,0,0,0.1);
+    padding: 30px;
+    margin-top: 20px;
 }
 
-.debug-section h3 {
-    color: var(--primary);
-    margin-bottom: 15px;
+.anime-header {
+    display: flex;
+    gap: 30px;
+    margin-bottom: 30px;
 }
 
-/* Загрузчик (для будущего использования) */
-.loader {
-    display: inline-block;
-    width: 50px;
-    height: 50px;
-    border: 5px solid rgba(255, 255, 255, 0.3);
+.anime-poster-container {
+    position: relative;
+    flex-shrink: 0;
+    width: 300px;
+}
+
+.anime-poster {
+    width: 100%;
+    border-radius: 8px;
+    box-shadow: 0 4px 15px rgba(0,0,0,0.2);
+    aspect-ratio: 2/3;
+    object-fit: cover;
+}
+
+.anime-rating {
+    position: absolute;
+    top: -15px;
+    right: -15px;
+    background: var(--primary);
+    color: var(--white);
+    width: 60px;
+    height: 60px;
     border-radius: 50%;
-    border-top-color: var(--primary);
-    animation: spin 1s ease-in-out infinite;
-    margin: 30px auto;
-    display: block;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    font-weight: bold;
+    box-shadow: 0 2px 10px rgba(0,0,0,0.2);
 }
 
-@keyframes spin {
-    to { transform: rotate(360deg); }
+.rating-value {
+    font-size: 1.5rem;
+    line-height: 1;
+}
+
+.rating-label {
+    font-size: 0.7rem;
+    opacity: 0.9;
+}
+
+.anime-info {
+    flex: 1;
+}
+
+.anime-info h1 {
+    color: var(--dark);
+    margin-bottom: 5px;
+    font-size: 2rem;
+}
+
+.anime-info h2 {
+    color: var(--gray);
+    font-weight: normal;
+    font-size: 1.2rem;
+    margin-bottom: 20px;
+}
+
+.anime-meta {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(200px, 1fr));
+    gap: 15px;
+    margin-bottom: 25px;
+}
+
+.meta-item {
+    background: var(--light-gray);
+    padding: 10px;
+    border-radius: 5px;
+}
+
+.meta-label {
+    display: block;
+    font-size: 0.8rem;
+    color: var(--gray);
+    margin-bottom: 3px;
+}
+
+.meta-value {
+    font-weight: 500;
+}
+
+.shikimori-link {
+    display: inline-block;
+    background: var(--secondary);
+    color: white;
+    padding: 10px 20px;
+    border-radius: 5px;
+    margin-top: 15px;
+    transition: background 0.3s;
+    text-decoration: none;
+}
+
+.shikimori-link:hover {
+    background: #5a4cb3;
+}
+
+.anime-description {
+    margin: 30px 0;
+    line-height: 1.7;
+}
+
+.anime-description h3 {
+    margin-bottom: 15px;
+    color: var(--dark);
+}
+
+.back-container {
+    margin-top: 40px;
+    text-align: center;
+}
+
+.back-button {
+    display: inline-block;
+    padding: 12px 25px;
+    background: var(--light-gray);
+    color: var(--dark);
+    border-radius: 5px;
+    text-decoration: none;
+    transition: all 0.3s;
+}
+
+.back-button:hover {
+    background: #d1d7e0;
+}
+
+/* Ошибки */
+.error-container {
+    max-width: 800px;
+    margin: 50px auto;
+    padding: 30px;
+    background: var(--white);
+    border-radius: 10px;
+    box-shadow: 0 2px 15px rgba(0,0,0,0.1);
+    text-align: center;
+}
+
+.error-message {
+    margin: 30px 0;
+    color: #555;
+    line-height: 1.6;
+}
+
+.debug-details {
+    margin-top: 30px;
+    padding: 20px;
+    background: var(--light-gray);
+    border-radius: 8px;
+    text-align: left;
+}
+
+.debug-details h3 {
+    margin-bottom: 15px;
+    color: var(--dark);
+}
+
+.debug-details ul {
+    list-style: none;
+}
+
+.debug-details li {
+    margin-bottom: 10px;
+    padding-bottom: 10px;
+    border-bottom: 1px solid #eee;
+}
+
+.error-button {
+    display: inline-block;
+    padding: 12px 30px;
+    background: var(--primary);
+    color: white;
+    border-radius: 5px;
+    text-decoration: none;
+    transition: all 0.3s;
+}
+
+.error-button:hover {
+    background: var(--primary-dark);
+    transform: translateY(-2px);
 }
 
 /* Адаптивность */
 @media (max-width: 768px) {
-    .header h1 {
-        font-size: 2rem;
-    }
-
-    .anime-grid {
-        grid-template-columns: repeat(auto-fill, minmax(160px, 1fr));
-        gap: 20px;
-    }
-
-    .anime-card img {
-        height: 240px;
-    }
-
-    .episode-nav {
+    .catalog-header {
         flex-direction: column;
-    }
-
-    .nav-btn, .episode-selector {
-        width: 100%;
+        align-items: flex-start;
     }
 
     .search-form {
-        max-width: 90%;
-    }
-}
-
-@media (max-width: 480px) {
-    .container {
-        padding: 15px;
-    }
-
-    .header h1 {
-        font-size: 1.8rem;
+        max-width: 100%;
     }
 
     .anime-grid {
-        grid-template-columns: repeat(auto-fill, minmax(140px, 1fr));
+        grid-template-columns: repeat(auto-fill, minmax(150px, 1fr));
         gap: 15px;
     }
 
-    .anime-card img {
-        height: 200px;
+    .anime-header {
+        flex-direction: column;
     }
 
-    .player-header h1 {
-        font-size: 1.8rem;
+    .anime-poster-container {
+        width: 100%;
+        max-width: 300px;
+        margin: 0 auto 20px;
     }
-
-    .player-header h2 {
-        font-size: 1.1rem;
-    }
-}
-.video-links {
-    margin-top: 20px;
-    padding: 15px;
-    background: rgba(0,0,0,0.2);
-    border-radius: 8px;
-    text-align: center;
-}
-
-.video-links p {
-    margin-bottom: 10px;
-    color: var(--gray);
 }

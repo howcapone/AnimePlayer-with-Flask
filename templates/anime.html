@@ -1,0 +1,65 @@
+{% extends "base.html" %}
+
+{% block title %}{{ anime.title }} | AnimeCatalog{% endblock %}
+
+{% block content %}
+<div class="anime-container">
+    <div class="anime-header">
+        <div class="anime-poster-container">
+            <img src="{{ anime.image or '/static/img/placeholder.jpg' }}"
+                 alt="{{ anime.title }}" class="anime-poster">
+            <div class="anime-rating">
+                <span class="rating-value">{{ anime.score or 'N/A' }}</span>
+                <span class="rating-label">Рейтинг</span>
+            </div>
+        </div>
+
+        <div class="anime-info">
+            <h1>{{ anime.title }}</h1>
+            {% if anime.original_title and anime.original_title != anime.title %}
+            <h2>{{ anime.original_title }}</h2>
+            {% endif %}
+
+            <div class="anime-meta">
+                <div class="meta-item">
+                    <span class="meta-label">Тип:</span>
+                    <span class="meta-value">{{ anime.kind or 'Не указан' }}</span>
+                </div>
+                <div class="meta-item">
+                    <span class="meta-label">Статус:</span>
+                    <span class="meta-value">{{ anime.status or 'Не указан' }}</span>
+                </div>
+                <div class="meta-item">
+                    <span class="meta-label">Эпизоды:</span>
+                    <span class="meta-value">{{ anime.episodes_aired }}/{{ anime.episodes }}</span>
+                </div>
+                <div class="meta-item">
+                    <span class="meta-label">Год:</span>
+                    <span class="meta-value">{{ anime.year or 'Не указан' }}</span>
+                </div>
+                {% if anime.genres %}
+                <div class="meta-item">
+                    <span class="meta-label">Жанры:</span>
+                    <span class="meta-value">{{ anime.genres|join(', ') }}</span>
+                </div>
+                {% endif %}
+            </div>
+
+            {% if anime.shikimori_url %}
+            <a href="{{ anime.shikimori_url }}" target="_blank" class="shikimori-link">
+                Страница на Shikimori
+            </a>
+            {% endif %}
+        </div>
+    </div>
+
+    <div class="anime-description">
+        <h3>Описание</h3>
+        <p>{{ anime.description }}</p>
+    </div>
+
+    <div class="back-container">
+        <a href="{{ url_for('catalog') }}" class="back-button">← Назад к каталогу</a>
+    </div>
+</div>
+{% endblock %}

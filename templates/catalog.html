@@ -1,52 +1,56 @@
 {% extends "base.html" %}
 
-{% block title %}Каталог аниме{% endblock %}
+{% block title %}Каталог аниме | AnimeCatalog{% endblock %}
 
 {% block content %}
-    <div class="header">
+<div class="catalog-container">
+    <div class="catalog-header">
         <h1>Каталог аниме</h1>
         <form class="search-form" action="{{ url_for('catalog') }}" method="get">
-            <input type="text" name="search" class="search-input" placeholder="Поиск аниме..." value="{{ search_query }}">
-            <button type="submit" class="search-btn">Найти</button>
+            <input type="text" name="search" class="search-input"
+                   placeholder="Поиск аниме..." value="{{ search_query }}">
+            <button type="submit" class="search-button">
+                <i class="search-icon"></i> Поиск
+            </button>
         </form>
     </div>
 
     {% if anime_list %}
-        <div class="anime-grid">
-            {% for anime in anime_list %}
-                <a href="{{ url_for('player', anime_id=anime.id, episode=1) }}" class="anime-card" data-anime-id="{{ anime.id }}">
-                    <img src="{{ anime.image }}" alt="{{ anime.title }}" onerror="this.src='/static/img/placeholder.jpg'">
-                    <div class="anime-info">
-                        <h3>{{ anime.title }}</h3>
-                        <p>{{ anime.year }} • {{ anime.episodes_count }} серий</p>
-                    </div>
-                </a>
-            {% endfor %}
-        </div>
-    {% endif %}
+    <div class="anime-grid">
+        {% for anime in anime_list %}
+        <a href="{{ url_for('anime_details', anime_id=anime.id) }}" class="anime-card">
+            <div class="card-image-container">
+                <img src="{{ anime.image or '/static/img/placeholder.jpg' }}"
+                     alt="{{ anime.title }}">
+                <div class="card-overlay">
+                    <span class="episodes-count">{{ anime.episodes }} эп.</span>
+                    <span class="rating">{{ anime.score or 'N/A' }}</span>
+                </div>
+            </div>
+            <div class="card-info">
+                <h3>{{ anime.title }}</h3>
+                <p>{{ anime.year or 'Год неизвестен' }}</p>
+            </div>
+        </a>
+        {% endfor %}
+    </div>
 
-    {% if config.DEBUG %}
-    <div class="debug-section">
-        <h3>Debug Info:</h3>
-        <p>Total anime: {{ anime_list|length }}</p>
-        <p>Search query: "{{ search_query }}"</p>
-        {% if debug_first_item %}
-        <p>First item:</p>
-        <ul>
-            <li>ID: {{ debug_first_item.id }}</li>
-            <li>Title: {{ debug_first_item.title }}</li>
-            <li>Episodes: {{ debug_first_item.episodes }}</li>
-        </ul>
+    <div class="pagination">
+        {% if current_page > 1 %}
+        <a href="{{ url_for('catalog', page=current_page-1, search=search_query) }}"
+           class="page-link">← Назад</a>
         {% endif %}
+
+        <span class="current-page">Страница {{ current_page }}</span>
+
+        <a href="{{ url_for('catalog', page=current_page+1, search=search_query) }}"
+           class="page-link">Вперед →</a>
+    </div>
+    {% else %}
+    <div class="no-results">
+        <p>Не удалось загрузить список аниме</p>
+        <a href="{{ url_for('catalog') }}" class="reset-search">Попробовать снова</a>
     </div>
     {% endif %}
-
-    <script>
-    // Добавим проверку кликов для отладки
-    document.querySelectorAll('.anime-card').forEach(card => {
-        card.addEventListener('click', function(e) {
-            console.log('Clicked anime ID:', this.dataset.animeId);
-        });
-    });
-    </script>
+</div>
 {% endblock %}
